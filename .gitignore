@@ -1,0 +1,16 @@
+# Java / Maven build output
+target/
+*.class
+# Node
+node_modules/
+dist/
+# Python
+__pycache__/
+.venv/
+.pytest_cache/
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+# Secrets
+.env

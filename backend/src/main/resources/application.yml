@@ -1,0 +1,24 @@
+# application.yml = the app's settings. ${VAR:default} means "read env var VAR, else use default".
+# Same jar runs on your laptop, in Docker, and in Kubernetes — only the env vars change.
+server:
+  port: 8080
+
+spring:
+  application:
+    name: ticket-service
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://localhost:5432/nettrack}
+    username: ${DB_USER:nettrack}
+    password: ${DB_PASSWORD:nettrack}
+  jpa:
+    hibernate:
+      ddl-auto: validate   # Hibernate only CHECKS tables match our entities; Flyway CREATES them
+    open-in-view: false
+  flyway:
+    enabled: true          # runs db/migration/V*.sql on startup, in order, once each
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
