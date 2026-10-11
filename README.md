@@ -1,6 +1,8 @@
 # NetTrack — Telecom Outage Ticket Tracker
 
-One small project that touches every skill on the resume.
+Full-stack outage ticketing: Java Spring Boot API, React dashboard, Python automation, Node.js notifier, PostgreSQL, Docker, Kubernetes, and Jenkins CI/CD.
+
+Detailed diagrams and request flows: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
 ```
  alarms.csv ──► Python automation script ──► POST /api/tickets
