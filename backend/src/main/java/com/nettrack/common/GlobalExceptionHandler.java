@@ -1,5 +1,6 @@
 package com.nettrack.common;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,6 +20,23 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(IllegalStateException.class)
     public ProblemDetail conflict(IllegalStateException e) {
         return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, e.getMessage());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ProblemDetail invalid(IllegalArgumentException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST, e.getMessage());
+    }
+
+    // If-Match didn't match the current version: the client is working from stale data
+    @ExceptionHandler(PreconditionFailedException.class)
+    public ProblemDetail stale(PreconditionFailedException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.PRECONDITION_FAILED, e.getMessage());
+    }
+
+    // A database constraint caught a duplicate that slipped past the code check (e.g. two retries racing)
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ProblemDetail duplicate(DataIntegrityViolationException e) {
+        return ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, "Duplicate request; retry to get the existing resource");
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

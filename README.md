@@ -4,6 +4,8 @@ Full-stack outage ticketing: Java Spring Boot API, React dashboard, Python autom
 
 Detailed diagrams and request flows: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
 
+Partner ordering API (TM Forum TMF622, OpenAPI 3, safe retries, order amendments, transactional outbox): [docs/ORDERING.md](docs/ORDERING.md)
+
 ```
  alarms.csv ──► Python automation script ──► POST /api/tickets
                                                    │
@@ -16,7 +18,8 @@ Detailed diagrams and request flows: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md
 
 | Part | Folder | Skill |
 |---|---|---|
-| 1 | `backend/` | Java 21, Spring Boot, REST, JPA, Flyway, PostgreSQL, JUnit/Mockito |
+| 1 | `backend/` | Java, Spring Boot, REST, JPA, Flyway, PostgreSQL, JUnit/Mockito, Testcontainers |
+| 1b | `backend/.../order` | TMF622 Product Ordering API, OpenAPI 3, idempotent retries, ETag/If-Match amendments, outbox events |
 | 2 | `frontend/` | React, Hooks, TypeScript, Context, REST calls, Vitest |
 | 3 | `automation/` | Python scripting, ETL, JSON/CSV, pytest |
 | 4 | `notifier/` | Node.js / Express |
